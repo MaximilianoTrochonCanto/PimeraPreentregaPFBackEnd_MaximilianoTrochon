@@ -22,7 +22,7 @@ async function listaProductos()
 async function listaCarritos() {
     try {
         const data = await fs.promises.readFile(filePath, 'utf-8');
-        return JSON.parse(data); // Parse JSON data here
+        return JSON.parse(data); 
     } catch (error) {
         console.error('Error reading file:', error);
         throw error;
