@@ -6,6 +6,19 @@ import { _dirname } from "../utils.js";
 const router = Router();
 const filePath = path.join(_dirname,'fileManager', 'carts.json');
 
+
+
+async function listaProductos() 
+  {
+    try{
+      const data = await fs.promises.readFile(path.join(_dirname,'fileManager', 'products.json'), "utf-8");
+      return JSON.parse(data)
+  }catch(error){
+    console.log(error)
+  }
+}
+
+
 async function listaCarritos() {
     try {
         const data = await fs.promises.readFile(filePath, 'utf-8');
@@ -51,12 +64,21 @@ router.get("/", async (req, res) => {
         const { cid, pid } = req.params;
         
         let carritos = await listaCarritos();
+        let products = await listaProductos()
+
+        
 
         const cartIndex = carritos.findIndex(c => c.id === cid);
+        const pIndex = products.findIndex(p => p.id === pid);
 
         if (cartIndex === -1) {
             return res.status(404).json({
                 message: `El carrito con ID ${cid} no fue encontrado`
+            });
+        }
+        if (pIndex === -1) {
+            return res.status(404).json({
+                message: `El producto con ID ${pid} no fue encontrado`
             });
         }
 
@@ -90,6 +112,7 @@ router.get("/", async (req, res) => {
     }
 });
 
+
 router.post("/", async (req, res) => {
     try {
       const { products } = req.body;
@@ -100,27 +123,41 @@ router.post("/", async (req, res) => {
         });
       }
   
-      const carritos = await listaCarritos();
-  
-      let maxId = 0;
-      carritos.forEach((cart) => {
-        if (cart.id > maxId) {
-          maxId = cart.id;
+      const combinedProducts = products.reduce((acc, product) => {
+        const existingProduct = acc.find(p => p.id === product.id);
+        if (existingProduct) {
+          existingProduct.quantity++;
+        } else {
+          acc.push({ id: product.id, quantity: 1 });
         }
-      });
-      const id = String(Number(maxId) + Number(1));
+        return acc;
+      }, []);
   
-      if (carritos.some((cart) => cart.id === id)) {
+      const validProducts = await listaProductos();
+      const validProductIds = validProducts.map(product => product.id);
+  
+      const invalidProductIds = combinedProducts.filter(product => !validProductIds.includes(product.id));
+      if (invalidProductIds.length > 0) {
         return res.status(400).json({
-          message: `El carrito ${id} ya existe`,
+          message: `Los siguientes productos no son válidos: ${invalidProductIds.map(p => p.id).join(', ')}`,
         });
       }
   
-      const nuevoCarrito = { id:id, products };
+      const carritos = await listaCarritos();
+      const maxId = Math.max(...carritos.map(cart => parseInt(cart.id)), 0);
+      const newId = String(maxId + 1);
+  
+      if (carritos.some(cart => cart.id === newId)) {
+        return res.status(400).json({
+          message: `El carrito ${newId} ya existe`,
+        });
+      }
+  
+      const nuevoCarrito = { id: newId, products: combinedProducts };
   
       const updatedCarritos = [...carritos, nuevoCarrito];
-  
       const filePath = path.join(_dirname, 'fileManager', 'carts.json');
+  
       await fs.promises.writeFile(filePath, JSON.stringify(updatedCarritos), "utf-8");
   
       res.status(200).json({
@@ -134,6 +171,7 @@ router.post("/", async (req, res) => {
       });
     }
   });
+
 
 
 

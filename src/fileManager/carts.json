@@ -5,7 +5,8 @@
       { "product": "5", "quantity": 1 },
       { "product": "6", "quantity": 1 },
       { "product": "2", "quantity": 5 },
-      { "product": "4", "quantity": 2 }
+      { "product": "4", "quantity": 2 },
+      { "product": "1", "quantity": 2 }
     ]
   },
   {
@@ -27,6 +28,37 @@
     "products": [
       { "product": "2", "quantity": 1 },
       { "product": "3", "quantity": 1 }
+    ]
+  },
+  {
+    "id": "5",
+    "products": [
+      { "id": { "id": "1" }, "quantity": 1 },
+      { "id": { "id": "2" }, "quantity": 1 },
+      { "id": { "id": "3" }, "quantity": 1 }
+    ]
+  },
+  {
+    "id": "6",
+    "products": [
+      { "id": "1", "quantity": 1 },
+      { "id": "2", "quantity": 1 },
+      { "id": "3", "quantity": 1 }
+    ]
+  },
+  {
+    "id": "7",
+    "products": [
+      { "id": "1", "quantity": 2 },
+      { "id": "2", "quantity": 1 }
+    ]
+  },
+  {
+    "id": "8",
+    "products": [
+      { "id": "1", "quantity": 1 },
+      { "id": "2", "quantity": 1 },
+      { "id": "3", "quantity": 1 }
     ]
   }
 ]

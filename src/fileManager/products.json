@@ -1,1 +1,100 @@
-[{"id":"1","status":false,"title":"Campera","description":"Campera 1","code":"WDF9231","price":1800,"stock":10,"category":"Clothes","thumbnails":["ruta1.jpg","ruta2.jpg"]},{"id":"2","status":false,"title":"Campera","description":"Campera 2","code":"CDA9208","price":1800,"stock":10,"category":"Clothes","thumbnails":["ruta1.jpg","ruta2.jpg"]},{"id":"3","status":false,"title":"Campera","description":"Campera 3","code":"AWF9231","price":1800,"stock":10,"category":"Clothes","thumbnails":["ruta1.jpg","ruta2.jpg"]},{"id":"4","status":false,"title":"Campera","description":"Campera 4","code":"WRE1231","price":1800,"stock":10,"category":"Clothes","thumbnails":["ruta1.jpg","ruta2.jpg"]},{"id":"6","status":false,"title":"Campera","description":"Campera 6","code":"OXA2145","price":1800,"stock":10,"category":"Clothes","thumbnails":["ruta1.jpg","ruta2.jpg"]},{"id":"7","title":"Campera","description":"Campera 7","code":"UJY53313","price":1800,"stock":10,"category":"Clothes","thumbnails":["ruta1.jpg","ruta2.jpg"]},{"id":"8","status":true,"title":"Sapukai","description":"Sapukai 180","code":"RKT340","price":180000,"stock":10,"category":"Motorbikes","thumbnails":["ruta1.jpg","ruta2.jpg"]},{"id":"9","status":true,"title":"Sapukai","description":"Sapukai 250","code":"568340","price":430000,"stock":10,"category":"Motorbikes","thumbnails":["ruta1.jpg","ruta2.jpg"]}]
+[
+  {
+    "id": "1",
+    "status": false,
+    "title": "Campera",
+    "description": "Campera 1",
+    "code": "WDF9231",
+    "price": 1800,
+    "stock": 10,
+    "category": "Clothes",
+    "thumbnails": ["ruta1.jpg", "ruta2.jpg"]
+  },
+  {
+    "id": "2",
+    "status": false,
+    "title": "Campera",
+    "description": "Campera 2",
+    "code": "CDA9208",
+    "price": 1800,
+    "stock": 10,
+    "category": "Clothes",
+    "thumbnails": ["ruta1.jpg", "ruta2.jpg"]
+  },
+  {
+    "id": "3",
+    "status": false,
+    "title": "Campera",
+    "description": "Campera 3",
+    "code": "AWF9231",
+    "price": 1800,
+    "stock": 10,
+    "category": "Clothes",
+    "thumbnails": ["ruta1.jpg", "ruta2.jpg"]
+  },
+  {
+    "id": "4",
+    "status": false,
+    "title": "Campera",
+    "description": "Campera 4",
+    "code": "WRE1231",
+    "price": 1800,
+    "stock": 10,
+    "category": "Clothes",
+    "thumbnails": ["ruta1.jpg", "ruta2.jpg"]
+  },
+  {
+    "id": "6",
+    "status": false,
+    "title": "Campera",
+    "description": "Campera 6",
+    "code": "OXA2145",
+    "price": 1800,
+    "stock": 10,
+    "category": "Clothes",
+    "thumbnails": ["ruta1.jpg", "ruta2.jpg"]
+  },
+  {
+    "id": "7",
+    "title": "Campera",
+    "description": "Campera 7",
+    "code": "UJY53313",
+    "price": 1800,
+    "stock": 10,
+    "category": "Clothes",
+    "thumbnails": ["ruta1.jpg", "ruta2.jpg"]
+  },
+  {
+    "id": "8",
+    "status": true,
+    "title": "Sapukai",
+    "description": "Sapukai 180",
+    "code": "RKT340",
+    "price": 180000,
+    "stock": 10,
+    "category": "Motorbikes",
+    "thumbnails": ["ruta1.jpg", "ruta2.jpg"]
+  },
+  {
+    "id": "9",
+    "status": true,
+    "title": "Sapukai",
+    "description": "Sapukai 250",
+    "code": "568340",
+    "price": 430000,
+    "stock": 10,
+    "category": "Motorbikes",
+    "thumbnails": ["ruta1.jpg", "ruta2.jpg"]
+  },
+  {
+    "id": "10",
+    "status": true,
+    "title": "Sapukai",
+    "description": "Sapukai 890",
+    "code": "560",
+    "price": 900,
+    "stock": 10,
+    "category": "Motorbikes",
+    "thumbnails": ["ruta1.jpg", "ruta2.jpg"]
+  }
+]

@@ -9,7 +9,7 @@ const filePath = path.join(_dirname,'fileManager', 'products.json');
 async function listaProductos() 
   {
     try{
-      const data = await fs.promises.readFile("./src/fileManager/products.json", "utf-8");
+      const data = await fs.promises.readFile(filePath, "utf-8");
       return JSON.parse(data)
   }catch(error){
     console.log(error)
@@ -18,22 +18,26 @@ async function listaProductos()
 
 
 router.get("/", async (req, res) => {
-    const resultado = await fs.promises.readFile(
-     filePath,
-      "utf-8"
-    );
+    try {
+     
   
-    req.query.limit > 0
-      ? res.send(JSON.parse(resultado).slice(0, req.query.limit))
-      : res.send(JSON.parse(resultado));
+      const jsonData = await listaProductos()
+      let limit = parseInt(req.query.limit);
+      if (isNaN(limit) || limit <= 0) {
+        limit = jsonData.length; 
+      }
+      res.status(200).json(jsonData.slice(0, limit));
+    } catch (error) {
+      console.error("Error reading file:", error);
+      res.status(500).json({ error: "Internal server error" });
+    }
   });
 
   router.get("/:pId", async (req, res) => {
     try {
       
-      const resultado = await fs.promises.readFile(filePath, "utf-8");
-  
-      const products = JSON.parse(resultado);
+      
+      const products = await listaProductos();
   
       const product = products.find((p) => p.id === req.params.pId);
   
@@ -51,29 +55,30 @@ router.get("/", async (req, res) => {
 
   router.post("/",uploader.single('thumbnail'), async (req, res) => {
     try {
-      const { titulo, descripcion, precio, thumbnail, stock, codigo } = req.body;
-      if (
-        titulo === "" ||
-        descripcion === "" ||
-        precio === 0 ||
-        stock === 0 ||
-        codigo === ""
-      )
-        res.status(400);
-      else {
-        const allProducts = await fs.promises.readFile(
-          filePath,
-          "utf-8"
-        );
+      const { title, description, price, thumbnail, stock, code } = req.body;
+      if (!title|| !description || !price || !stock || !code) {
+        return res.status(400).json({
+          message: "Los campos 'titulo', 'descripcion', 'precio', 'stock' y 'codigo' son obligatorios.",
+        });
+      }
+      const parsedPrecio = parseFloat(price);
+    const parsedStock = parseInt(stock);
+    if (isNaN(parsedPrecio) || parsedPrecio <= 0 || isNaN(parsedStock) || parsedStock <= 0) {
+      return res.status(400).json({
+        message: "Los campos 'precio' y 'stock' deben ser números mayores que cero.",
+      });
+    }
+
+        const allProducts = await listaProductos();
   
         const lastId =
-          JSON.parse(allProducts).length === 0
+          allProducts.length === 0
             ? 1
             : Number(
-                JSON.parse(allProducts)[JSON.parse(allProducts).length - 1].id
+                allProducts[allProducts.length - 1].id
               ) + 1;
         const newProduct = { id: lastId.toString(),status:true, ...req.body };
-        const copia = JSON.parse(allProducts);
+        const copia = allProducts;
         copia.push(newProduct);
         console.log(copia);
         await fs.promises.writeFile(
@@ -85,7 +90,7 @@ router.get("/", async (req, res) => {
           ...newProduct,
           mensaje: "Producto agregado",
         });
-      }
+      
     } catch (error) {
       res.send(error);
       console.log(error);
